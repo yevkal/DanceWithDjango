@@ -1,51 +1,34 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-
+from django.http import HttpResponse, HttpResponseNotFound
 
 # Create your views here.
-def leo(request):
-    return HttpResponse('Знак зодиака лев')
 
 
-def scorpio(request):
-    return HttpResponse('Знак зодиака скорпион')
+zodiac_dict = {
+
+    'aries': 'Знак зодиака овен',
+    'taurus': 'Знак зодиака телец',
+    'gemini': 'Знак зодиака близнецы',
+    'cancer': 'Знак зодиака рак',
+    'leo': 'Знак зодиака лев',
+    'virgo': 'Знак зодиака дева',
+    'libra': 'Знак зодиака весы',
+    'scorpio': 'Знак зодиака скорпион',
+    'sagittarius': 'Знак зодиака стрелец',
+    'capricorn': 'Знак зодиака козерог',
+    'aquarius': 'Знак зодиака водолей',
+    'pisces': 'Знак зодиака рыбы'
+
+}
 
 
-def aries(request):
-    return HttpResponse('Знак зодиака овен')
+def get_info_about_sign_zodiac(request, sign_zodiac : str):
+    description = zodiac_dict.get(sign_zodiac)
+    if description:
+        return HttpResponse(description)
+    else:
+        return HttpResponseNotFound(f"Неизвестный знак зодиака {sign_zodiac}")
 
 
-def taurus(request):
-    return HttpResponse('Знак зодиака телец')
-
-
-def gemini(request):
-    return HttpResponse('Знак зодиака близнецы')
-
-
-def cancer(request):
-    return HttpResponse('Знак зодиака рак')
-
-
-def virgo(request):
-    return HttpResponse('Знак зодиака дева')
-
-
-def libra(request):
-    return HttpResponse('Знак зодиака весы')
-
-
-def sagittarius(request):
-    return HttpResponse('Знак зодиака стрелец')
-
-
-def capricorn(request):
-    return HttpResponse('Знак зодиака козерог')
-
-
-def aquarius(request):
-    return HttpResponse('Знак зодиака водолей')
-
-
-def pisces(request):
-    return HttpResponse('Знак зодиака рыбы')
+def get_info_about_sign_zodiac_by_numbers(request, sign_zodiac : int):
+    return HttpResponse(f"This is number {sign_zodiac}")
