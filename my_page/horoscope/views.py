@@ -2,8 +2,6 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
 # Create your views here.
-
-
 zodiac_dict = {
 
     'aries': 'Знак зодиака овен',
@@ -20,6 +18,28 @@ zodiac_dict = {
     'pisces': 'Знак зодиака рыбы'
 
 }
+
+types = {
+    'fire' : ['aries,leo,sagittarius'],
+    'earth': ['taurus','virgo','capricorn'],
+    'air'  : ['gemini','libra','aquarius'],
+    'water': ['cancer','scorpio', 'pisces'],
+}
+
+
+
+def get_info_about_types(request):
+    types_list = list(types)
+
+    li_elements = ''
+    for type_ in types_list:
+        li_elements+=f"<li><a href= > {type_.title()}</a></li>"
+    responce = f"""
+    <ul>
+        {li_elements}
+    </ul>
+    """
+    return HttpResponse(responce)
 
 def index(request):
     zodiacs = list(zodiac_dict)
