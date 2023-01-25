@@ -20,7 +20,7 @@ zodiac_dict = {
 }
 
 types = {
-    'fire' : ['aries,leo,sagittarius'],
+    'fire' : ['aries','leo','sagittarius'],
     'earth': ['taurus','virgo','capricorn'],
     'air'  : ['gemini','libra','aquarius'],
     'water': ['cancer','scorpio', 'pisces'],
@@ -33,7 +33,8 @@ def get_info_about_types(request):
 
     li_elements = ''
     for type_ in types_list:
-        li_elements+=f"<li><a href= > {type_.title()}</a></li>"
+        redirect_path = reverse('zodiac_type', args=[type_])
+        li_elements+=f"<li><a href='{redirect_path}' > {type_.title()}</a></li>"
     responce = f"""
     <ul>
         {li_elements}
@@ -55,6 +56,22 @@ def index(request):
     """
     return HttpResponse(responce)
 
+
+
+def get_info_about_type_zodiac(request, type_zodiac : str):
+    description = types.get(type_zodiac)
+    if description:
+        elements =' '
+        for type_zod in description:
+            elements+=f"<li>{type_zod.title()}</li>"
+        responce = f"""
+        <ul>
+            {elements}
+        </ul>
+        """
+        return HttpResponse(responce)
+    else:
+        return HttpResponseNotFound(f"Неизвестный ТИП зодиака {sign_zodiac}")
 
 def get_info_about_sign_zodiac(request, sign_zodiac : str):
     description = zodiac_dict.get(sign_zodiac)
